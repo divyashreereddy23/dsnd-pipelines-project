@@ -72,7 +72,7 @@ jupyter notebook
 ```
 
 ## Project Structure
-
+```
 dsnd-pipelines-project/
 │
 ├── data/
@@ -83,6 +83,7 @@ dsnd-pipelines-project/
 ├── requirements.txt                # Python dependencies
 ├── README.md                       # Project documentation
 └── LICENSE.txt                     # License file
+```
 
 ## Dataset
 
@@ -171,7 +172,7 @@ GridSearchCV optimization for the best performing model with extensive parameter
 Run the data exploration cells to understand the dataset:
 
 #### Load and explore data
-```
+```bash
 df = pd.read_csv('data/reviews.csv')
 df.info()
 ```
@@ -181,7 +182,7 @@ df.info()
 Execute the pipeline building section:
 
 #### Define feature groups and create preprocessing pipeline
-```
+```bash
 numerical_features = ['Age', 'Positive Feedback Count', 'Clothing ID']
 categorical_features = ['Division Name', 'Department Name', 'Class Name']
 text_features = ['Title', 'Review Text']
@@ -191,7 +192,7 @@ text_features = ['Title', 'Review Text']
 
 Train all three models and compare performance:
 #### Train models
-```
+```bash
 for name, pipeline in models.items():
     pipeline.fit(X_train, y_train)
 ```
@@ -200,7 +201,7 @@ for name, pipeline in models.items():
 
 Optimize the best model with hyperparameter tuning:
 #### Hyperparameter tuning
-```
+```bash
 grid_search = GridSearchCV(best_model, param_grid, cv=5)
 grid_search.fit(X_train, y_train)
 ```
@@ -208,7 +209,7 @@ grid_search.fit(X_train, y_train)
 ### Step 5: Save Model
 
 The final trained model is saved for deployment:
-```
+```bash
 joblib.dump(best_model, 'best_model_tuned.pkl')
 ```
 
@@ -235,19 +236,19 @@ joblib.dump(best_model, 'best_model_tuned.pkl')
 Run the test suite to verify pipeline components:
 
 #### Test preprocessing pipeline
-```
+```bash
 assert preprocessor.fit_transform(X_train).shape[1] > 500
 print("✓ Preprocessing creates 500+ features")
 ```
 
 #### Test model predictions
-```
+```bash
 assert len(y_pred) == len(y_test)
 print("✓ Predictions match test set size")
 ```
 
 #### Test probability outputs
-```
+```bash
 assert all(0 <= p <= 1 for p in y_pred_proba)
 print("✓ Probabilities in valid range")
 ```
@@ -255,7 +256,7 @@ print("✓ Probabilities in valid range")
 ### Cross-Validation
 
 The project includes 5-fold cross-validation to ensure model stability:
-```
+```bash
 cv_scores = cross_val_score(pipeline, X_train, y_train, cv=5)
 print(f"Mean CV Score: {cv_scores.mean():.4f} (±{cv_scores.std():.4f})")
 ```
@@ -263,7 +264,7 @@ print(f"Mean CV Score: {cv_scores.mean():.4f} (±{cv_scores.std():.4f})")
 ## Deployment
 
 To use the trained model for predictions:
-```
+```bash
 import joblib
 
 # Load the saved model
